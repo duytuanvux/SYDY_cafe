@@ -18,7 +18,7 @@ function Item({ item }: { item: ItemType }) {
 
   return (
     <>
-    <div className="item p-5 m-1">
+      <div className="item p-5 m-1">
         <div className="item-img">
           <img src={item.img} alt="" />
         </div>

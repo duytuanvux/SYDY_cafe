@@ -17,16 +17,16 @@ const Login = () => {
   } = useForm({
     resolver: yupResolver(userSchema),
   });
-  const onSubmit = async (data) => {
+  const onSubmit = async (data : any) => {
     try {
-      const res = await axios.post('http://localhost:8000/v1/auth/login', data)
-        console.log(res.data);
-    } catch (error) {
+      const res = await axios.post(
+        "https://sydy-cafe-backend.vercel.app/v1/auth/login",
+        data
+      );
+      console.log(res.data);
+    } catch (error : any) {
       console.log(error.message);
-      
     }
-   
-   
   };
   return (
     <div className="bg-base-cream flex">
@@ -40,11 +40,7 @@ const Login = () => {
       <div className="w-1/4 flex flex-col mx-14 mt-10">
         <div className="flex justify-center">
           <Link to="/">
-            <img
-              className="w-52"
-              src="/assets/img/primary-logo.png"
-              alt=""
-            />
+            <img className="w-52" src="/assets/img/primary-logo.png" alt="" />
           </Link>
         </div>
         <div className="flex flex-col gap-2">

@@ -1,12 +1,12 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import axios from "axios";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import * as yup from "yup";
 
 const userSchema = yup.object({
   username: yup.string().min(5).required(),
-  email: yup.string().email(),
+  email: yup.string().email().required(),
   password: yup.string().required("This field is required"),
   passwordConfirmation: yup
     .string()
@@ -15,6 +15,7 @@ const userSchema = yup.object({
 });
 
 const Register = () => {
+  const navigate = useNavigate()
   const {
     register,
     handleSubmit,
@@ -22,20 +23,20 @@ const Register = () => {
   } = useForm({
     resolver: yupResolver(userSchema),
   });
-  const onSubmit = async (data : any) => {
-      const res = await axios.post('http://localhost:8000/v1/auth/register', data)
-      console.log(res.data);
-  }
+  const onSubmit = async (data: any) => {
+    const res = await axios.post(
+      "https://sydy-cafe-backend.vercel.app/v1/auth/register",
+      data
+    );
+    console.log(res.data);
+    navigate("/login")
+  };
   return (
     <div className="bg-base-cream flex">
       <div className="flex flex-col w-1/4 justify-center mx-14">
         <div className="flex justify-center">
           <Link to="/">
-            <img
-              className="w-52"
-              src="/assets/img/primary-logo.png"
-              alt=""
-            />
+            <img className="w-52" src="/assets/img/primary-logo.png" alt="" />
           </Link>
         </div>
         <div className="flex flex-col gap-2">

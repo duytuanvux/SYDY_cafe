@@ -23,7 +23,7 @@ const CartSlice = createSlice({
       );
       if (itemInCart) {
         //@ts-ignore
-        itemInCart.quantity++;
+        itemInCart.quantity += action.payload.quantity;
       } else {
         //@ts-ignore
         state.cart.push(action.payload);
@@ -38,7 +38,6 @@ const CartSlice = createSlice({
           item.sugar === action.payload.sugar &&
           item.ice === action.payload.ice
       );
-      console.log(itemInCartIndex);
 
       if (itemInCartIndex > -1) {
         state.cart.splice(itemInCartIndex, 1);
