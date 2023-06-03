@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import axios from "axios";
 
 const userSchema = yup.object({
   username: yup.string().min(5).required("This field is required"),
@@ -16,15 +17,23 @@ const Login = () => {
   } = useForm({
     resolver: yupResolver(userSchema),
   });
-  const onSubmit = (data: any) => {
-    console.log(data);
+  const onSubmit = async (data) => {
+    try {
+      const res = await axios.post('http://localhost:8000/v1/auth/login', data)
+        console.log(res.data);
+    } catch (error) {
+      console.log(error.message);
+      
+    }
+   
+   
   };
   return (
     <div className="bg-base-cream flex">
       <div className="w-3/4">
         <img
           className="object-cover h-screen w-screen"
-          src="src\assets\img\IMG_9810.JPG"
+          src="/assets/img/IMG_9810.JPG"
           alt=""
         />
       </div>
@@ -33,7 +42,7 @@ const Login = () => {
           <Link to="/">
             <img
               className="w-52"
-              src="/src/assets/img/primary-logo.png"
+              src="/assets/img/primary-logo.png"
               alt=""
             />
           </Link>

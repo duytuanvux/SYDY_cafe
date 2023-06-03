@@ -7,7 +7,7 @@ function Footer() {
     <footer className="bg-base-grey text-base-cream flex justify-center items-center py-5">
       <div className="basis-1/4 flex justify-center">
         <Link to="">
-          <img className="w-40" src="/src/assets/img/logo_circle.png" alt="" />
+          <img className="w-40" src="/assets/img/logo_circle.png" alt="" />
         </Link>
       </div>
       <div className="basis-2/4 flex flex-col gap-4">

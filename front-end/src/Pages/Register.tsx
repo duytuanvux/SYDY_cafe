@@ -1,4 +1,5 @@
 import { yupResolver } from "@hookform/resolvers/yup";
+import axios from "axios";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import * as yup from "yup";
@@ -21,7 +22,10 @@ const Register = () => {
   } = useForm({
     resolver: yupResolver(userSchema),
   });
-  const onSubmit = (data: any) => console.log(data);
+  const onSubmit = async (data : any) => {
+      const res = await axios.post('http://localhost:8000/v1/auth/register', data)
+      console.log(res.data);
+  }
   return (
     <div className="bg-base-cream flex">
       <div className="flex flex-col w-1/4 justify-center mx-14">
@@ -29,7 +33,7 @@ const Register = () => {
           <Link to="/">
             <img
               className="w-52"
-              src="/src/assets/img/primary-logo.png"
+              src="/assets/img/primary-logo.png"
               alt=""
             />
           </Link>
@@ -96,7 +100,7 @@ const Register = () => {
       <div className="w-3/4 flex">
         <img
           className=" object-cover h-screen w-screen"
-          src="src\assets\img\IMG_9934.JPG"
+          src="/assets/img/IMG_9934.JPG"
           alt=""
         />
       </div>

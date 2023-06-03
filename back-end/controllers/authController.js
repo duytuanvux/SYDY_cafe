@@ -1,5 +1,6 @@
 const argon2 =require("argon2")
 const User = require("../models/user")
+const jwt = require("jsonwebtoken")
 const authController = {
     //Register 
     registerUser: async(req,res) => {
@@ -32,7 +33,13 @@ const authController = {
                 res.status("404").json("Wrong password")
             }
             if (user && validPassword) {
-                res.status(200).json(user)
+                const accessToken = jwt.sign({
+                    id: user.id,
+                    admin: user.admin
+                },
+                process.env.ACCESS_KEY,
+                {expiresIn : "2h"})
+                res.status(200).json({user, accessToken})
             }
         } catch (error) {
             

@@ -9,7 +9,7 @@ const HomePage = () => {
           muted
           loop
         >
-          <source src="src\assets\img\landing.mp4" />
+          <source src="/assets/img/landing.mp4" />
         </video>
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center tracking-wider leading-relaxed  text-5xl text-base-cream cursor-none">
           Making every day better.
