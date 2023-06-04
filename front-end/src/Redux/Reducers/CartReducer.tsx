@@ -1,12 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { ItemType } from "../../Components/Item";
 
-export interface ItemInCartType extends ItemType {
-  quantity: number;
-
-  sugar: string;
-  ice: string;
-}
+import { ItemInCartType } from "../../Interfaces/ItemInterface";
 
 const CartSlice = createSlice({
   name: "cart",

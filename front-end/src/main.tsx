@@ -4,7 +4,7 @@ import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { App } from "./App";
 import News from "./Pages/News";
 import Drinks from "./Pages/Drinks";
-import Foods from "./Pages/Foods";
+
 import HomePage from "./Pages/HomePage";
 import Login from "./Pages/Login";
 import NotFound from "./Pages/NotFound";
@@ -20,7 +20,7 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
       <Routes>
         <Route path="" element={<App />}>
           <Route path="/" element={<HomePage />} />
-          <Route path="foods" element={<Foods />} />
+
           <Route path="drinks" element={<Drinks />} />
           <Route path="news" element={<News />} />
           <Route path="cart" element={<Cart />}></Route>

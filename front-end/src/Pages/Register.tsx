@@ -1,8 +1,9 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import axios from "axios";
+import { registerUser } from "../Redux/APIRequest";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import * as yup from "yup";
+import { useDispatch } from "react-redux";
 
 const userSchema = yup.object({
   username: yup.string().min(5).required(),
@@ -15,7 +16,8 @@ const userSchema = yup.object({
 });
 
 const Register = () => {
-  const navigate = useNavigate()
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -23,13 +25,8 @@ const Register = () => {
   } = useForm({
     resolver: yupResolver(userSchema),
   });
-  const onSubmit = async (data: any) => {
-    const res = await axios.post(
-      "https://sydy-cafe-backend.vercel.app/v1/auth/register",
-      data
-    );
-    console.log(res.data);
-    navigate("/login")
+  const onSubmit = (data: any) => {
+    registerUser(data, dispatch, navigate);
   };
   return (
     <div className="bg-base-cream flex">

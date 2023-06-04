@@ -1,7 +1,7 @@
-import { ItemInCartType } from "../Redux/Reducers/CartReducer";
 import { DeleteOutlined } from "@ant-design/icons";
 import { useDispatch } from "react-redux";
 import { removeItem } from "../Redux/Reducers/CartReducer";
+import { ItemInCartType } from "../Interfaces/ItemInterface";
 
 function ItemInCart({ item }: { item: ItemInCartType }) {
   const dispatch = useDispatch();

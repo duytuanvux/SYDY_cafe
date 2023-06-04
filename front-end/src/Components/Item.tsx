@@ -3,13 +3,7 @@ import { addToCart } from "../Redux/Reducers/CartReducer";
 import Modal from "antd/es/modal/Modal";
 import { useState } from "react";
 import { InputNumber, Radio, Form } from "antd";
-
-export interface ItemType {
-  id: number;
-  img: string;
-  name: string;
-  price: number;
-}
+import { ItemType } from "../Interfaces/ItemInterface";
 
 function Item({ item }: { item: ItemType }) {
   const [modalOpen, setModalOpen] = useState<boolean>(false);

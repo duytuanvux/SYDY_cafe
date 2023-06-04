@@ -3,9 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { Outlet } from "react-router-dom";
 import Footer from "./Components/Footer";
 import Header from "./Components/Header";
-import { getItems } from "./Redux/Reducers/ItemReducer";
+import { getItems } from "./Redux/APIRequest";
 import { Drawer, FloatButton } from "antd";
-import { ItemInCartType } from "./Redux/Reducers/CartReducer";
+
 import { RootState } from "./Redux/store";
 import {
   PhoneOutlined,
@@ -14,6 +14,7 @@ import {
 } from "@ant-design/icons";
 
 import ItemInCart from "./Components/ItemInCart";
+import { ItemInCartType } from "./Interfaces/ItemInterface";
 
 export const App = () => {
   const dispatch = useDispatch();
@@ -38,8 +39,7 @@ export const App = () => {
   };
 
   useEffect(() => {
-    //@ts-ignore
-    dispatch(getItems());
+    getItems(dispatch);
   }, []);
   return (
     <div className="max-w-screen-xl mx-auto bg-white">

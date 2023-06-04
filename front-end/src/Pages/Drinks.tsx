@@ -1,6 +1,7 @@
-import Item, { ItemType } from "../Components/Item";
 import { useSelector } from "react-redux";
+import Item from "../Components/Item";
 import { RootState } from "../Redux/store";
+import { ItemType } from "../Interfaces/ItemInterface";
 
 function Drinks() {
   const drinksList = useSelector((state: RootState) => state.item).items;
