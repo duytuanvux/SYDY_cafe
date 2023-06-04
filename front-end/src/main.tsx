@@ -12,6 +12,7 @@ import Register from "./Pages/Register";
 import { store } from "./Redux/store";
 import "./index.css";
 import Cart from "./Pages/Cart";
+import Management from "./Pages/Management";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   // <React.StrictMode>
@@ -20,7 +21,6 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
       <Routes>
         <Route path="" element={<App />}>
           <Route path="/" element={<HomePage />} />
-
           <Route path="drinks" element={<Drinks />} />
           <Route path="news" element={<News />} />
           <Route path="cart" element={<Cart />}></Route>
@@ -29,6 +29,7 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
         </Route>
         <Route path="register" element={<Register />}></Route>
         <Route path="login" element={<Login />}></Route>
+        <Route path="management" element={<Management />}></Route>
       </Routes>
     </BrowserRouter>
   </Provider>

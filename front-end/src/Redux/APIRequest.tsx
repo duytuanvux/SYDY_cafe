@@ -11,6 +11,7 @@ import {
 import { saveItems } from "./Reducers/ItemReducer";
 import { AppDispatch } from "./store";
 import { instance } from "../axios";
+import { ItemType } from "../Interfaces/ItemInterface";
 
 export const loginUser = async (
   user: any,
@@ -51,6 +52,14 @@ export const getItems = async (dispatch: any) => {
   try {
     const res = await instance.get("/drinks");
     dispatch(saveItems(res.data));
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const removeItem = async (id: any) => {
+  try {
+    await instance.delete(`/drinks/${id}`).then();
   } catch (error) {
     console.log(error);
   }
