@@ -59,8 +59,14 @@ export const getItems = async (dispatch: any) => {
 
 export const removeItem = async (id: any) => {
   try {
-    await instance.delete(`/drinks/${id}`).then();
+    await instance.delete(`/drinks/${id}`);
   } catch (error) {
     console.log(error);
   }
+};
+export const editItem = async (item: ItemType) => {
+  try {
+    const res = await instance.put(`/drinks/${item.id}`, item);
+    console.log(res);
+  } catch (error) {}
 };

@@ -1,11 +1,14 @@
 import { useSelector } from "react-redux";
 import { Link, NavLink } from "react-router-dom";
 import { RootState } from "../Redux/store";
+import { User } from "../Interfaces/User";
 
 function Header() {
-  const user: any = useSelector(
-    (state: RootState) => state.auth.login.currentUser
+  const user: User = useSelector(
+    //@ts-ignore
+    (state: RootState) => state.auth.login.currentUser?.user
   );
+  console.log(user);
 
   return (
     <header className=" bg-base-grey sticky top-0">
@@ -23,8 +26,9 @@ function Header() {
         </ul>
         <div className="flex items-center justify-center basis-3/12 text-base-cream ">
           {user ? (
-            <div>
-              Welcome, <span>{user?.user.username}</span>
+            <div className="flex gap-2 justify-between">
+              <span>Welcome, {user.username}</span> 
+              {user.admin ? <Link to="management">Quản lý</Link> : <></>}
             </div>
           ) : (
             <div className="flex justify-center  gap-3 ">

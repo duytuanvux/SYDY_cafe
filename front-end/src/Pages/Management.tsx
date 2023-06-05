@@ -1,9 +1,9 @@
-import { Table, Image, Button, Modal } from "antd";
+import { Table, Image, Button, Modal, Input, Form, InputNumber } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { ItemType } from "../Interfaces/ItemInterface";
 import { useSelector } from "react-redux";
 import { RootState } from "../Redux/store";
-import { getItems } from "../Redux/APIRequest";
+import { editItem, getItems } from "../Redux/APIRequest";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { removeItem } from "../Redux/APIRequest";
@@ -13,16 +13,25 @@ const Management = () => {
   useEffect(() => {
     getItems(dispatch);
   }, []);
+  const listItem: ItemType[] = useSelector(
+    (state: RootState) => state.item.items
+  );
   const [modalOpen, setModalOpen] = useState<boolean>(false);
-  const showModal = () => {
-    setModalOpen(true)
-  }
+
+  const [modalData, setModalData] = useState<ItemType>();
+
+  const showModal = (item: ItemType) => {
+    setModalData(item);
+    setModalOpen(true);
+  };
   const handleCancel = () => {
-    setModalOpen(false)
-  }
-  const handleOk = () => {
-    setModalOpen(false)
-  }
+    setModalOpen(false);
+  };
+
+  const handleEdit = (item: ItemType) => {
+    editItem(item);
+    setModalOpen(false);
+  };
   const columns: ColumnsType<ItemType> = [
     {
       title: "Id",
@@ -55,7 +64,7 @@ const Management = () => {
       align: "center",
       render: (item) => (
         <div className="flex gap-3 items-center justify-center">
-          <Button onClick={showModal}>Sửa</Button>
+          <Button onClick={() => showModal(item)}>Sửa</Button>
           <Button type="primary" onClick={() => removeItem(item.id)} danger>
             Xóa
           </Button>
@@ -64,7 +73,6 @@ const Management = () => {
     },
   ];
 
-  const listItem = useSelector((state: RootState) => state.item.items);
   return (
     <div>
       <div className="text-center uppercase m-5 text-4xl">Quản lý sản phẩm</div>
@@ -76,8 +84,48 @@ const Management = () => {
         sticky
         rowKey="id"
       />
-      <Modal open={modalOpen} onOk={handleOk} onCancel={handleCancel} centered>
-        <p>sth here</p>
+      <Modal
+        open={modalOpen}
+        onCancel={handleCancel}
+        destroyOnClose={true}
+        footer={null}
+        centered
+      >
+        <Form
+          name={modalData?.name}
+          onFinish={handleEdit}
+          initialValues={{ name: modalData?.name, price: modalData?.price }}
+        >
+          <div className="flex flex-col gap-2">
+            <div className="flex gap-2 items-center">
+              <img className="item-img" src={modalData?.img} alt="" />
+              <div className="flex flex-col items-start gap-1">
+                <Form.Item label="ID" name="id" initialValue={modalData?.id}>
+                  <InputNumber disabled />
+                </Form.Item>
+                <Form.Item
+                  label="Name"
+                  name="name"
+                  rules={[
+                    { required: true, message: "Please fill this field." },
+                  ]}
+                >
+                  <Input />
+                </Form.Item>
+                <Form.Item
+                  label="Price"
+                  name="price"
+                  rules={[
+                    { required: true, message: "Please fill this field." },
+                  ]}
+                >
+                  <InputNumber controls={false} />
+                </Form.Item>
+              </div>
+            </div>
+            <Button htmlType="submit">Update</Button>
+          </div>
+        </Form>
       </Modal>
     </div>
   );

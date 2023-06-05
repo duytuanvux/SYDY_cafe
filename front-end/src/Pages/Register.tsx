@@ -6,7 +6,7 @@ import * as yup from "yup";
 import { useDispatch } from "react-redux";
 
 const userSchema = yup.object({
-  username: yup.string().min(5).required(),
+  username: yup.string().min(6).required(),
   email: yup.string().email().required(),
   password: yup.string().required("This field is required"),
   passwordConfirmation: yup

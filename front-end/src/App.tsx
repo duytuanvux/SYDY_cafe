@@ -19,7 +19,7 @@ import { ItemInCartType } from "./Interfaces/ItemInterface";
 export const App = () => {
   const dispatch = useDispatch();
   const cart = useSelector((state: RootState) => state.cart).cart;
-  console.log(cart);
+
   //@ts-ignore
   const totalQty: number = cart.reduce((sum: number, item: ItemInCartType) => {
     return sum + item?.quantity;

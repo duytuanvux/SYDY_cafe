@@ -16,7 +16,7 @@ function Item({ item }: { item: ItemType }) {
         <div className="item-img">
           <img src={item.img} alt="" />
         </div>
-        <div className="item-info flex flex-col items-start">
+        <div className="item-info flex flex-col items-center">
           <div className="item-name font-bold text-xl">{item.name}</div>
           <div className="item-price text-lg">{item.price}</div>
         </div>
