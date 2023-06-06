@@ -25,7 +25,7 @@ function Header() {
           <NavLink to={"news"}>Tin tức</NavLink>
         </ul>
         <div className="flex items-center justify-center basis-3/12 text-base-cream ">
-          {user ? (
+          {Object.keys(user).length !==0 ? (
             <div className="flex gap-2 justify-between">
               <span>Welcome, {user.username}</span>
               {user.admin ? <Link to="management">Quản lý</Link> : <></>}
