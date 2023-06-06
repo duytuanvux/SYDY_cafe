@@ -53,8 +53,7 @@ const ItemSlice = createSlice({
       state.loading = true;
     });
     builder.addCase(editItem.fulfilled, (state, action) => {
-      (state.loading = false), 
-      console.log(action.payload);
+      (state.loading = false), console.log(action.payload);
     });
   },
 });

@@ -4,7 +4,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { loginUser } from "../Redux/APIRequest";
+import { loginUser } from "../Redux/Reducers/AuthReducer";
+import { AppDispatch } from "../Redux/store";
 
 const userSchema = yup.object({
   username: yup.string().min(5).required("This field is required"),
@@ -12,7 +13,7 @@ const userSchema = yup.object({
 });
 
 const Login = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
   const {
     register,
@@ -21,8 +22,8 @@ const Login = () => {
   } = useForm({
     resolver: yupResolver(userSchema),
   });
-  const onSubmit = (data: any) => {
-    loginUser(data, dispatch, navigate);
+  const onSubmit = async (data: any) => {
+    await dispatch(loginUser(data)).then((res) => navigate("/"));
   };
   return (
     <div className="bg-base-cream flex">

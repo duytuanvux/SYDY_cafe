@@ -26,9 +26,8 @@ const Management = () => {
   };
 
   const handleEdit = (item: ItemType) => {
-    
-    dispatch(editItem(item))
-    
+    dispatch(editItem(item));
+
     setModalOpen(false);
   };
 

@@ -1,9 +1,10 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import { registerUser } from "../Redux/APIRequest";
+import { registerUser } from "../Redux/Reducers/AuthReducer";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import { useDispatch } from "react-redux";
+import { AppDispatch } from "../Redux/store";
 
 const userSchema = yup.object({
   username: yup.string().min(6).required(),
@@ -16,7 +17,7 @@ const userSchema = yup.object({
 });
 
 const Register = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
   const {
     register,
@@ -25,8 +26,8 @@ const Register = () => {
   } = useForm({
     resolver: yupResolver(userSchema),
   });
-  const onSubmit = (data: any) => {
-    registerUser(data, dispatch, navigate);
+  const onSubmit = async (data: any) => {
+    await dispatch(registerUser(data)).then((res) => navigate("/login"));
   };
   return (
     <div className="bg-base-cream flex">

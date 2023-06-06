@@ -4,9 +4,9 @@ import { RootState } from "../Redux/store";
 import { User } from "../Interfaces/User";
 
 function Header() {
-  const user: User = useSelector(
+  const user: any = useSelector(
     //@ts-ignore
-    (state: RootState) => state.auth.login.currentUser?.user
+    (state: RootState) => state.auth.currentUser
   );
   console.log(user);
 

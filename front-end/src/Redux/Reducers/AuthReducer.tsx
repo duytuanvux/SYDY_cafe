@@ -1,55 +1,41 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
 
-const authSlice = createSlice({
-  name: "auth",
-  initialState: {
-    login: {
-      currentUser: null,
-      isFetching: false,
-      error: false,
-    },
-    register: {
-      isFetching: false,
-      error: false,
-      success: false,
-    },
-  },
-  reducers: {
-    loginStart: (state) => {
-      state.login.isFetching = true;
-    },
-    loginSuccess: (state, action) => {
-      state.login.isFetching = false;
-      state.login.currentUser = action.payload;
-
-      state.login.error = false;
-    },
-    loginFalse: (state) => {
-      state.login.isFetching = false;
-      state.login.error = true;
-    },
-    registerStart: (state) => {
-      state.register.isFetching = true;
-    },
-    registerSuccess: (state) => {
-      state.register.isFetching = false;
-      state.register.success = true;
-      state.register.error = false;
-    },
-    registerFalse: (state) => {
-      state.register.isFetching = false;
-      state.register.error = true;
-    },
-  },
+export const loginUser = createAsyncThunk("login", async (data: any) => {
+  const response = await axios.post(
+    "https://sydy-cafe-backend.vercel.app/v1/auth/login",
+    data
+  );
+  return response.data;
 });
 
-export const {
-  loginStart,
-  loginSuccess,
-  loginFalse,
-  registerFalse,
-  registerStart,
-  registerSuccess,
-} = authSlice.actions;
+export const registerUser = createAsyncThunk("register", async (data: any) => {
+  const response = await axios.post(
+    "https://sydy-cafe-backend.vercel.app/v1/auth/register",
+    data
+  );
+
+  return response.data;
+});
+interface User {
+  currentUser: Object;
+  accessToken: unknown;
+}
+
+const initialState = {
+  currentUser: {},
+  accessToken: null,
+} as User;
+const authSlice = createSlice({
+  name: "auth",
+  initialState,
+  reducers: {},
+  extraReducers: (builder) => {
+    builder.addCase(loginUser.fulfilled, (state, action) => {
+      state.currentUser = action.payload.user;
+      state.accessToken = action.payload.accessToken;
+    });
+  },
+});
 
 export const authReducer = authSlice.reducer;
