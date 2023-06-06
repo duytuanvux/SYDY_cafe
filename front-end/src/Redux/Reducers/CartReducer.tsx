@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
-
-import { ItemInCartType } from "../../Interfaces/ItemInterface";
+import { PayloadAction } from "@reduxjs/toolkit";
+import { ItemInCartType, ItemType } from "../../Interfaces/ItemInterface";
 
 const CartSlice = createSlice({
   name: "cart",
@@ -23,9 +23,7 @@ const CartSlice = createSlice({
         state.cart.push(action.payload);
       }
     },
-    removeItem: (state, action) => {
-      console.log(action.payload);
-
+    removeItem: (state, action: PayloadAction<ItemInCartType>) => {
       const itemInCartIndex = state.cart.findIndex(
         (item: ItemInCartType) =>
           item.id === action.payload.id &&
@@ -36,7 +34,6 @@ const CartSlice = createSlice({
       if (itemInCartIndex > -1) {
         state.cart.splice(itemInCartIndex, 1);
       }
-      console.log(state.cart);
     },
   },
 });

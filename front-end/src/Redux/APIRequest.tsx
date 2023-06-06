@@ -8,10 +8,7 @@ import {
   registerStart,
   registerSuccess,
 } from "./Reducers/AuthReducer";
-import { saveItems } from "./Reducers/ItemReducer";
 import { AppDispatch } from "./store";
-import { instance } from "../axios";
-import { ItemType } from "../Interfaces/ItemInterface";
 
 export const loginUser = async (
   user: any,
@@ -46,27 +43,4 @@ export const registerUser = async (
   } catch (error) {
     dispatch(registerFalse);
   }
-};
-
-export const getItems = async (dispatch: any) => {
-  try {
-    const res = await instance.get("/drinks");
-    dispatch(saveItems(res.data));
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-export const removeItem = async (id: any) => {
-  try {
-    await instance.delete(`/drinks/${id}`);
-  } catch (error) {
-    console.log(error);
-  }
-};
-export const editItem = async (item: ItemType) => {
-  try {
-    const res = await instance.put(`/drinks/${item.id}`, item);
-    console.log(res);
-  } catch (error) {}
 };

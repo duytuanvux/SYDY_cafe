@@ -1,21 +1,18 @@
-import { Table, Image, Button, Modal, Input, Form, InputNumber } from "antd";
+import { Button, Form, Image, Input, InputNumber, Modal, Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { ItemType } from "../Interfaces/ItemInterface";
-import { useSelector } from "react-redux";
-import { RootState } from "../Redux/store";
-import { editItem, getItems } from "../Redux/APIRequest";
-import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { removeItem } from "../Redux/APIRequest";
+import { editItem, removeItem } from "../Redux/Reducers/ItemReducer";
+import { AppDispatch, RootState } from "../Redux/store";
 
 const Management = () => {
-  const dispatch = useDispatch();
-  useEffect(() => {
-    getItems(dispatch);
-  }, []);
+  const dispatch = useDispatch<AppDispatch>();
+
   const listItem: ItemType[] = useSelector(
     (state: RootState) => state.item.items
   );
+
   const [modalOpen, setModalOpen] = useState<boolean>(false);
 
   const [modalData, setModalData] = useState<ItemType>();
@@ -29,8 +26,14 @@ const Management = () => {
   };
 
   const handleEdit = (item: ItemType) => {
-    editItem(item);
+    
+    dispatch(editItem(item))
+    
     setModalOpen(false);
+  };
+
+  const handleRemoveItem = (item: ItemType) => {
+    dispatch(removeItem(item));
   };
   const columns: ColumnsType<ItemType> = [
     {
@@ -65,7 +68,13 @@ const Management = () => {
       render: (item) => (
         <div className="flex gap-3 items-center justify-center">
           <Button onClick={() => showModal(item)}>Sửa</Button>
-          <Button type="primary" onClick={() => removeItem(item.id)} danger>
+          <Button
+            type="primary"
+            onClick={() => {
+              handleRemoveItem(item);
+            }}
+            danger
+          >
             Xóa
           </Button>
         </div>
