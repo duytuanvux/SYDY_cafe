@@ -27,7 +27,7 @@ const Register = () => {
     resolver: yupResolver(userSchema),
   });
   const onSubmit = async (data: any) => {
-    await dispatch(registerUser(data)).then((res) => navigate("/login"));
+    await dispatch(registerUser(data)).then(() => navigate("/login"));
   };
   return (
     <div className="bg-base-cream flex">

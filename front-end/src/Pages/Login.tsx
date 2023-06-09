@@ -23,7 +23,7 @@ const Login = () => {
     resolver: yupResolver(userSchema),
   });
   const onSubmit = async (data: any) => {
-    await dispatch(loginUser(data)).then((res) => navigate("/"));
+    await dispatch(loginUser(data)).then(() => navigate("/"));
   };
   return (
     <div className="bg-base-cream flex">

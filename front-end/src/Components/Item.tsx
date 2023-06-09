@@ -53,7 +53,7 @@ function Item({ item }: { item: ItemType }) {
             <div className="flex flex-col gap-2 w-full">
               <div className="item-name font-bold text-xl">{item.name}</div>
               <div className="flex justify-between">
-                <div className="item-price text-lg">{item.price}</div>
+                <div className="item-price text-lg">{item.price}<span>đ</span></div>
 
                 <Form.Item label="Số lượng" name="quantity">
                   <InputNumber

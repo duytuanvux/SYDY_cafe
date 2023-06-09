@@ -2,11 +2,16 @@ import { createSlice } from "@reduxjs/toolkit";
 import { PayloadAction } from "@reduxjs/toolkit";
 import { ItemInCartType } from "../../Interfaces/ItemInterface";
 
+
+interface Cart {
+  cart? : []
+}
+const initialState = {
+  cart : []
+}
 const CartSlice = createSlice({
   name: "cart",
-  initialState: {
-    cart: [],
-  },
+  initialState,
   reducers: {
     addToCart: (state, action) => {
       const itemInCart = state.cart.find(
@@ -35,8 +40,11 @@ const CartSlice = createSlice({
         state.cart.splice(itemInCartIndex, 1);
       }
     },
+    clearCart : (state) => {
+      state.cart = []
+    }
   },
 });
 
 export const CartReducer = CartSlice.reducer;
-export const { addToCart, removeItem } = CartSlice.actions;
+export const { addToCart, removeItem, clearCart } = CartSlice.actions;

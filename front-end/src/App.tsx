@@ -16,6 +16,8 @@ import {
 import ItemInCart from "./Components/ItemInCart";
 import { ItemInCartType } from "./Interfaces/ItemInterface";
 
+
+
 export const App = () => {
   const dispatch = useDispatch<AppDispatch>();
   const cart = useSelector((state: RootState) => state.cart).cart;

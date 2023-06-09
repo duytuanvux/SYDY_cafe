@@ -18,24 +18,29 @@ export const registerUser = createAsyncThunk("register", async (data: any) => {
   return response.data;
 });
 interface User {
-  currentUser: Object;
+  currentUser?: Object;
   accessToken: unknown;
 }
 
 const initialState = {
   currentUser: {},
-  accessToken: null,
+  
 } as User;
 const authSlice = createSlice({
   name: "auth",
   initialState,
-  reducers: {},
+  reducers: {
+    logout : (state) => {
+     delete  state.currentUser
+    }
+  },
   extraReducers: (builder) => {
     builder.addCase(loginUser.fulfilled, (state, action) => {
       state.currentUser = action.payload.user;
-      state.accessToken = action.payload.accessToken;
+      
     });
   },
 });
 
 export const authReducer = authSlice.reducer;
+export const {logout} = authSlice.actions

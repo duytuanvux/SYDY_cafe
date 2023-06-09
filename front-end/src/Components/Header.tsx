@@ -1,14 +1,19 @@
 import { useSelector } from "react-redux";
 import { Link, NavLink } from "react-router-dom";
-import { RootState } from "../Redux/store";
-import { User } from "../Interfaces/User";
+import { AppDispatch, RootState } from "../Redux/store";
+import { LogoutOutlined } from "@ant-design/icons";
+import { logout } from "../Redux/Reducers/AuthReducer";
+import { useDispatch } from "react-redux";
+import { clearCart } from "../Redux/Reducers/CartReducer";
+
+
 
 function Header() {
   const user: any = useSelector(
     //@ts-ignore
     (state: RootState) => state.auth.currentUser
   );
-  console.log(user);
+  const dispatch = useDispatch<AppDispatch>()
 
   return (
     <header className=" bg-base-grey sticky top-0">
@@ -25,10 +30,16 @@ function Header() {
           <NavLink to={"news"}>Tin tức</NavLink>
         </ul>
         <div className="flex items-center justify-center basis-3/12 text-base-cream ">
-          {Object.keys(user).length !==0 ? (
-            <div className="flex gap-2 justify-between">
+          {user ? (
+            <div className="flex gap-2 items-center justify-between">
               <span>Welcome, {user.username}</span>
               {user.admin ? <Link to="management">Quản lý</Link> : <></>}
+            <div className="flex items-center cursor-pointer" onClick={() => { 
+              dispatch(clearCart())
+              dispatch(logout())
+            }} >
+            <LogoutOutlined />
+              </div>  
             </div>
           ) : (
             <div className="flex justify-center  gap-3 ">
