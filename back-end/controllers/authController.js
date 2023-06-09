@@ -30,7 +30,7 @@ const authController = {
             }
             const validPassword = await argon2.verify(user.password, req.body.password)
             if(!validPassword) {
-                res.status("404").json("Wrong password")
+                res.status(404).json("Wrong password")
             }
             if (user && validPassword) {
                 const accessToken = jwt.sign({
@@ -39,7 +39,7 @@ const authController = {
                 },
                 process.env.ACCESS_KEY,
                 {expiresIn : "2h"})
-                res.status(200).json({user, accessToken})
+                res.status(200).json({username : user.username, admin: user.admin, accessToken})
             }
         } catch (error) {
             
