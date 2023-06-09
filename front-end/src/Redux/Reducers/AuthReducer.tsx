@@ -19,7 +19,6 @@ export const registerUser = createAsyncThunk("register", async (data: any) => {
 });
 interface User {
   currentUser?: Object;
-  accessToken: unknown;
 }
 
 const initialState = {
@@ -36,7 +35,7 @@ const authSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(loginUser.fulfilled, (state, action) => {
-      state.currentUser = action.payload.user;
+      state.currentUser = action.payload;
       
     });
   },
