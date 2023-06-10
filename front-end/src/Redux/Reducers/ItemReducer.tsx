@@ -14,6 +14,14 @@ export const removeItem = createAsyncThunk(
     return response.data;
   }
 );
+export const addItem = createAsyncThunk(
+  "addItem",
+  async (item: ItemType, { dispatch }) => {
+    const response = await instance.post(`/drinks`, item);
+    dispatch(getItems());
+    return response.data;
+  }
+);
 
 export const editItem = createAsyncThunk(
   "editItem",
@@ -24,12 +32,14 @@ export const editItem = createAsyncThunk(
   }
 );
 interface Items {
-  items: [];
+  items: ItemType[];
   loading: boolean;
+  searchItem: ItemType[];
 }
 const initialState = {
   items: [],
   loading: false,
+  searchItem: [],
 } as Items;
 const ItemSlice = createSlice({
   name: "item",
@@ -42,6 +52,7 @@ const ItemSlice = createSlice({
     builder.addCase(getItems.fulfilled, (state, action) => {
       state.items = action.payload;
     });
+
     builder.addCase(removeItem.pending, (state) => {
       state.loading = true;
     });
@@ -55,6 +66,15 @@ const ItemSlice = createSlice({
     builder.addCase(editItem.fulfilled, (state, action) => {
       (state.loading = false), console.log(action.payload);
     });
+
+    builder.addCase(addItem.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(addItem.fulfilled, (state, action) => {
+      (state.loading = false), console.log(action.payload);
+    });
+
+    builder;
   },
 });
 

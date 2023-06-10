@@ -2,13 +2,12 @@ import { createSlice } from "@reduxjs/toolkit";
 import { PayloadAction } from "@reduxjs/toolkit";
 import { ItemInCartType } from "../../Interfaces/ItemInterface";
 
-
 interface Cart {
-  cart? : []
+  cart?: [];
 }
 const initialState = {
-  cart : []
-}
+  cart: [],
+};
 const CartSlice = createSlice({
   name: "cart",
   initialState,
@@ -40,9 +39,9 @@ const CartSlice = createSlice({
         state.cart.splice(itemInCartIndex, 1);
       }
     },
-    clearCart : (state) => {
-      state.cart = []
-    }
+    clearCart: (state) => {
+      state.cart = [];
+    },
   },
 });
 

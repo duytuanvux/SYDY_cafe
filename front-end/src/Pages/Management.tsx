@@ -1,9 +1,9 @@
 import { Button, Form, Image, Input, InputNumber, Modal, Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ItemType } from "../Interfaces/ItemInterface";
-import { editItem, removeItem } from "../Redux/Reducers/ItemReducer";
+import { editItem, removeItem, addItem } from "../Redux/Reducers/ItemReducer";
 import { AppDispatch, RootState } from "../Redux/store";
 
 const Management = () => {
@@ -17,7 +17,11 @@ const Management = () => {
 
   const [modalData, setModalData] = useState<ItemType>();
 
-  const showModal = (item: ItemType) => {
+  const [dataSource, setDataSource] = useState<ItemType[]>();
+
+  useEffect(() => setDataSource(listItem), [listItem]);
+
+  const showModal = (item?: ItemType) => {
     setModalData(item);
     setModalOpen(true);
   };
@@ -25,14 +29,28 @@ const Management = () => {
     setModalOpen(false);
   };
 
-  const handleEdit = (item: ItemType) => {
-    dispatch(editItem(item));
-
+  const handleFinish = (item: ItemType) => {
+    if (item.id) {
+      dispatch(editItem(item));
+    } else {
+      dispatch(addItem(item));
+    }
     setModalOpen(false);
   };
-
   const handleRemoveItem = (item: ItemType) => {
     dispatch(removeItem(item));
+  };
+
+  const handleSearch = (e: any) => {
+    const currentVal = e.target.value;
+    const filterData = listItem.filter((entry) =>
+      entry.name.toLowerCase().trim().includes(currentVal.toLowerCase().trim())
+    );
+    if (filterData) {
+      setDataSource(filterData);
+    } else {
+      setDataSource(listItem);
+    }
   };
   const columns: ColumnsType<ItemType> = [
     {
@@ -42,26 +60,26 @@ const Management = () => {
       align: "center",
     },
     {
-      title: "Name",
+      title: "Tên sản phẩm",
       dataIndex: "name",
       key: "name",
       align: "center",
     },
     {
-      title: "Image",
+      title: "Hình ảnh",
       dataIndex: "img",
       key: "img",
       align: "center",
       render: (item) => <Image width={200} src={item} alt="" />,
     },
     {
-      title: "Price",
+      title: "Giá",
       dataIndex: "price",
       key: "price",
       align: "center",
     },
     {
-      title: "Action",
+      title: "Hành động",
       key: "action",
       align: "center",
       render: (item) => (
@@ -82,11 +100,15 @@ const Management = () => {
   ];
 
   return (
-    <div>
+    <div className="flex flex-col items-center">
       <div className="text-center uppercase m-5 text-4xl">Quản lý sản phẩm</div>
+      <div className="flex justify-center w-1/2 p-5 gap-5">
+        <Button onClick={() => showModal()}>Thêm sản phẩm</Button>
+        <Input placeholder="Tìm kiếm" onChange={handleSearch} />
+      </div>
       <Table
         columns={columns}
-        dataSource={listItem}
+        dataSource={dataSource}
         bordered={true}
         size="middle"
         sticky
@@ -101,7 +123,7 @@ const Management = () => {
       >
         <Form
           name={modalData?.name}
-          onFinish={handleEdit}
+          onFinish={handleFinish}
           initialValues={{ name: modalData?.name, price: modalData?.price }}
         >
           <div className="flex flex-col gap-2">
@@ -131,7 +153,9 @@ const Management = () => {
                 </Form.Item>
               </div>
             </div>
-            <Button htmlType="submit">Update</Button>
+            <Button htmlType="submit">
+              {modalData ? "Cập nhật sản phẩm" : "Thêm sản phẩm"}
+            </Button>
           </div>
         </Form>
       </Modal>
