@@ -29,6 +29,7 @@ function Item({ item }: { item: ItemType }) {
         open={modalOpen}
         centered
         onCancel={() => setModalOpen(false)}
+        destroyOnClose={true}
         footer={null}
         width={650}
       >
@@ -38,6 +39,7 @@ function Item({ item }: { item: ItemType }) {
             dispatch(addToCart({ ...item, ...e }));
             setModalOpen(false);
           }}
+          
           initialValues={{
             quantity: 1,
             sugar: "Bình Thường",

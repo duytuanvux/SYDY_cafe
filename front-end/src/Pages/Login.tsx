@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { loginUser } from "../Redux/Reducers/AuthReducer";
 import { AppDispatch } from "../Redux/store";
 
+
 const userSchema = yup.object({
   username: yup.string().min(5).required("This field is required"),
   password: yup.string().required("This field is required"),
@@ -26,7 +27,9 @@ const Login = () => {
     await dispatch(loginUser(data)).then(() => navigate("/"));
   };
   return (
+    
     <div className="bg-base-cream flex">
+      
       <div className="w-3/4">
         <img
           className="object-cover h-screen w-screen"

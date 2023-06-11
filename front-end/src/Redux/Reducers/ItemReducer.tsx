@@ -3,13 +3,13 @@ import { instance } from "../../axios";
 import { ItemType } from "../../Interfaces/ItemInterface";
 
 export const getItems = createAsyncThunk("getItems", async () => {
-  const response = await instance.get("/drinks");
+  const response = await instance.get("/item/getAllItem");
   return response.data;
 });
 export const removeItem = createAsyncThunk(
   "removeItem",
   async (item: ItemType, { dispatch }) => {
-    const response = await instance.delete(`/drinks/${item.id}`);
+    const response = await instance.delete(`/item/removeItem/${item._id}`);
     dispatch(getItems());
     return response.data;
   }
@@ -17,7 +17,7 @@ export const removeItem = createAsyncThunk(
 export const addItem = createAsyncThunk(
   "addItem",
   async (item: ItemType, { dispatch }) => {
-    const response = await instance.post(`/drinks`, item);
+    const response = await instance.post(`/item/addItem`, item);
     dispatch(getItems());
     return response.data;
   }
@@ -26,7 +26,7 @@ export const addItem = createAsyncThunk(
 export const editItem = createAsyncThunk(
   "editItem",
   async (item: ItemType, { dispatch }) => {
-    const response = await instance.put(`/drinks/${item.id}`, item);
+    const response = await instance.post(`/item/editItem/${item._id}`, item);
     dispatch(getItems());
     return response.data;
   }

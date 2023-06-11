@@ -1,5 +1,5 @@
 export interface ItemType {
-  id: number;
+  _id: string;
   img: string;
   name: string;
   price: number;
@@ -7,7 +7,6 @@ export interface ItemType {
 
 export interface ItemInCartType extends ItemType {
   quantity: number;
-
   sugar: string;
   ice: string;
 }

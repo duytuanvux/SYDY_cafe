@@ -9,7 +9,7 @@ function Drinks() {
   return (
     <div className=" flex flex-wrap gap-1 items-center justify-center">
       {drinksList.map((item: ItemType) => (
-        <Item item={item} key={item.id} />
+        <Item item={item} key={item._id} />
       ))}
     </div>
   );

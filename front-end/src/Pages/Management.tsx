@@ -1,4 +1,4 @@
-import { Button, Form, Image, Input, InputNumber, Modal, Table } from "antd";
+import { Button, Form, Image, Input, InputNumber, Modal, Table, Space} from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -12,6 +12,7 @@ const Management = () => {
   const listItem: ItemType[] = useSelector(
     (state: RootState) => state.item.items
   );
+  
 
   const [modalOpen, setModalOpen] = useState<boolean>(false);
 
@@ -30,7 +31,7 @@ const Management = () => {
   };
 
   const handleFinish = (item: ItemType) => {
-    if (item.id) {
+    if (item._id) {
       dispatch(editItem(item));
     } else {
       dispatch(addItem(item));
@@ -55,8 +56,8 @@ const Management = () => {
   const columns: ColumnsType<ItemType> = [
     {
       title: "Id",
-      dataIndex: "id",
-      key: "id",
+      dataIndex: "_id",
+      key: "_id",
       align: "center",
     },
     {
@@ -112,7 +113,7 @@ const Management = () => {
         bordered={true}
         size="middle"
         sticky
-        rowKey="id"
+        rowKey="_id"
       />
       <Modal
         open={modalOpen}
@@ -129,9 +130,9 @@ const Management = () => {
           <div className="flex flex-col gap-2">
             <div className="flex gap-2 items-center">
               <img className="item-img" src={modalData?.img} alt="" />
-              <div className="flex flex-col items-start gap-1">
-                <Form.Item label="ID" name="id" initialValue={modalData?.id}>
-                  <InputNumber disabled />
+                <Space direction="vertical">
+                <Form.Item label="ID" name="_id" initialValue={modalData?._id}>
+                  <InputNumber style={{width : "100%"}} disabled />
                 </Form.Item>
                 <Form.Item
                   label="Name"
@@ -140,7 +141,7 @@ const Management = () => {
                     { required: true, message: "Please fill this field." },
                   ]}
                 >
-                  <Input />
+                  <Input style={{width : "100%"}} />
                 </Form.Item>
                 <Form.Item
                   label="Price"
@@ -149,9 +150,10 @@ const Management = () => {
                     { required: true, message: "Please fill this field." },
                   ]}
                 >
-                  <InputNumber controls={false} />
+                  <InputNumber style={{width : "100%"}} controls={false} />
                 </Form.Item>
-              </div>
+                </Space>
+              
             </div>
             <Button htmlType="submit">
               {modalData ? "Cập nhật sản phẩm" : "Thêm sản phẩm"}

@@ -1,17 +1,18 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
+
+import { instance } from "../../axios";
 
 export const loginUser = createAsyncThunk("login", async (data: any) => {
-  const response = await axios.post(
-    "https://sydy-cafe-backend.vercel.app/v1/auth/login",
+  const response = await instance.post(
+    "/v1/auth/login",
     data
   );
   return response.data;
 });
 
 export const registerUser = createAsyncThunk("register", async (data: any) => {
-  const response = await axios.post(
-    "https://sydy-cafe-backend.vercel.app/v1/auth/register",
+  const response = await instance.post(
+    "/v1/auth/register",
     data
   );
 
