@@ -4,6 +4,7 @@ const dotenv = require("dotenv")
 const mongoose = require("mongoose")
 const cookieParser = require("cookie-parser")
 const authRoute  = require("./routes/auth")
+const itemRoute = require("./routes/item")
 
  
 
@@ -18,6 +19,7 @@ mongoose.connect(process.env.MONGOOSE_DB_URL);
 
 //ROUTE 
 app.use("/v1/auth", authRoute)
+app.use("/item", itemRoute)
 
 
 app.listen(8000, () => {
