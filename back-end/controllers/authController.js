@@ -38,7 +38,7 @@ const authController = {
                     admin: user.admin
                 },
                 process.env.ACCESS_KEY,
-                {expiresIn : "2h"})
+                {expiresIn : "30m"})
                 res.status(200).json({username : user.username, admin: user.admin, accessToken})
             }
         } catch (error) {

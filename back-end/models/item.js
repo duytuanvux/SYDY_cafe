@@ -9,6 +9,7 @@ const itemSchema = new mongoose.Schema({
     price : {
         type : Number,
         required : true,
+        unique : false
     }
 }, {
     timestamps : true
