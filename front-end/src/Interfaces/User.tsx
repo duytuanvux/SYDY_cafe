@@ -1,15 +1,5 @@
 export interface User {
-  admin: boolean;
-
-  createdAt: string;
-
-  email: string;
-
-  password: string;
-
-  updatedAt: string;
-
+  admin: boolean  ;
   username: string;
-
-  _id: string;
+  accessToken : string
 }

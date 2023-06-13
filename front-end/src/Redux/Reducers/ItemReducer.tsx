@@ -1,36 +1,10 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { instance } from "../../axios";
+
 import { ItemType } from "../../Interfaces/ItemInterface";
+import { instanceWithInterCeptor } from "../../axios";
 
-export const getItems = createAsyncThunk("getItems", async () => {
-  const response = await instance.get("/item/getAllItem");
-  return response.data;
-});
-export const removeItem = createAsyncThunk(
-  "removeItem",
-  async (item: ItemType, { dispatch }) => {
-    const response = await instance.delete(`/item/removeItem/${item._id}`);
-    dispatch(getItems());
-    return response.data;
-  }
-);
-export const addItem = createAsyncThunk(
-  "addItem",
-  async (item: ItemType, { dispatch }) => {
-    const response = await instance.post(`/item/addItem`, item);
-    dispatch(getItems());
-    return response.data;
-  }
-);
 
-export const editItem = createAsyncThunk(
-  "editItem",
-  async (item: ItemType, { dispatch }) => {
-    const response = await instance.post(`/item/editItem/${item._id}`, item);
-    dispatch(getItems());
-    return response.data;
-  }
-);
+
 interface Items {
   items: ItemType[];
   loading: boolean;
@@ -41,6 +15,40 @@ const initialState = {
   loading: false,
   searchItem: [],
 } as Items;
+
+export const getItems = createAsyncThunk("getItems", async () => {
+  const response = await instanceWithInterCeptor.get("/item/getAllItem");
+  return response.data;
+});
+export const removeItem = createAsyncThunk(
+  "removeItem",
+  async (item: ItemType, { dispatch }) => {
+    const response = await instanceWithInterCeptor.delete(`/item/removeItem/${item._id}`);
+    dispatch(getItems());
+    return response.data;
+  }
+);
+export const addItem = createAsyncThunk(
+  "addItem",
+  async (item: ItemType, { dispatch }) => {
+    const response = await instanceWithInterCeptor.post(`/item/addItem`, item);
+    dispatch(getItems());
+    return response.data;
+  }
+);
+
+export const editItem = createAsyncThunk(
+  "editItem",
+  async (item: ItemType, { dispatch }) => {
+ 
+    const response = await instanceWithInterCeptor.post(`/item/editItem/${item._id}`, item);
+    dispatch(getItems());
+    return response.data;
+  }
+);
+
+
+
 const ItemSlice = createSlice({
   name: "item",
   initialState,

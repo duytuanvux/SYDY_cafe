@@ -74,7 +74,7 @@ export const App = () => {
       >
         <div className=" flex flex-col gap-3 h-5/6 overflow-auto">
           {cart.map((item: ItemInCartType) => (
-            <ItemInCart item={item} key={item.id + item.sugar + item.ice} />
+            <ItemInCart item={item} key={item._id + item.sugar + item.ice} />
           ))}
         </div>
         {cart.length === 0 ? (

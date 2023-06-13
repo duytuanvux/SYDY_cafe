@@ -15,6 +15,8 @@ import "./index.css";
 import Management from "./Pages/Management";
 
 import { PersistGate } from "redux-persist/integration/react";
+import { injectStore } from "./axios";
+injectStore(store)
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   // <React.StrictMode>

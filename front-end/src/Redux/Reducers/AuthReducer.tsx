@@ -1,9 +1,10 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { instanceWithNoInterceptor } from "../../axios";
 
-import { instance } from "../../axios";
+
 
 export const loginUser = createAsyncThunk("login", async (data: any) => {
-  const response = await instance.post(
+  const response = await instanceWithNoInterceptor.post(
     "/v1/auth/login",
     data
   );
@@ -11,7 +12,7 @@ export const loginUser = createAsyncThunk("login", async (data: any) => {
 });
 
 export const registerUser = createAsyncThunk("register", async (data: any) => {
-  const response = await instance.post(
+  const response = await instanceWithNoInterceptor.post(
     "/v1/auth/register",
     data
   );
