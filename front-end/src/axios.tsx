@@ -5,10 +5,10 @@ export const injectStore = (_store : any) => {
   store = _store
 }
 export const instanceWithInterCeptor : AxiosInstance = axios.create({
-  baseURL: "sydy-cafe-backend.vercel.app",
+  baseURL: "https://sydy-cafe-backend.vercel.app",
 });
 export const instanceWithNoInterceptor : AxiosInstance = axios.create({
-  baseURL: "sydy-cafe-backend.vercel.app",
+  baseURL: "https://sydy-cafe-backend.vercel.app",
 });
 
 instanceWithInterCeptor.interceptors.request.use( function (config : InternalAxiosRequestConfig) {
